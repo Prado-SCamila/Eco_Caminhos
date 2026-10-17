@@ -22,5 +22,4 @@ Integridade garantida por chaves estrangeiras e restrições de unicidade
 
 
 Banco de dados	Microsoft SQL Server (T-SQL)
-API	ASP.NET Core + Dapper (ajuste conforme o seu projeto)
-Versionamento	Git e GitHub
+
