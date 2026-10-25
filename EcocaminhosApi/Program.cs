@@ -9,6 +9,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddScoped<ICasaRepository, CasaRepository>();
+builder.Services.AddScoped<ISituacaoRepository, SituacaoRepository>();
+builder.Services.AddScoped<IQuartoRepository, QuartoRepository>();
+builder.Services.AddScoped<ITipoProgramaRepository, TipoProgramaRepository>();
+builder.Services.AddScoped<IVoluntarioRepository, VoluntarioRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(o =>
     o.JsonSerializerOptions.ReferenceHandler =
