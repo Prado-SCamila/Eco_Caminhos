@@ -1,6 +1,7 @@
 using EcocaminhosApi.Interfaces;
 using EcocaminhosApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using EcocaminhosApi.DTOs;
 
 namespace EcocaminhosApi.Controllers
 {
@@ -36,6 +37,11 @@ namespace EcocaminhosApi.Controllers
                 return NotFound("Nenhum quarto foi encontrado");
             }
             return Ok(quartoBuscado);
+        }
+        [HttpGet("disponiveis")]
+         public IActionResult GetDisponiveis([FromQuery] string? nomeCasa)
+        {
+         return Ok(_quartoRepository.ListarDisponiveis(nomeCasa));
         }
 
         [HttpPost]

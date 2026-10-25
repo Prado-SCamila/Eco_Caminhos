@@ -2,6 +2,8 @@ using EcocaminhosApi.Data;
 using EcocaminhosApi.Interfaces;
 using EcocaminhosApi.Models;
 using Microsoft.EntityFrameworkCore;
+using EcocaminhosApi.DTOs;
+
 
 namespace EcocaminhosApi.Repositories
 {
@@ -54,5 +56,25 @@ namespace EcocaminhosApi.Repositories
                 _context.SaveChanges();
             }
         }
+        public List<QuartoDisponivelDto> ListarDisponiveis(string? nomeCasa = null)
+{
+    var query = _context.Quartos
+        .AsNoTracking()
+        .Select(q => new QuartoDisponivelDto
+        {
+            NomeCasa = q.IdCasaNavigation.NomeCasa,
+            NomeQuarto = q.NomeQuarto,
+            Capacidade = q.Capacidade,
+            TotalVoluntarios = q.Voluntarios.Count(),
+            VagasDisponiveis = q.Capacidade - q.Voluntarios.Count()
+        })
+        .Where(d => d.VagasDisponiveis > 0);
+
+    if (!string.IsNullOrWhiteSpace(nomeCasa))
+        query = query.Where(d => d.NomeCasa == nomeCasa);
+
+    return query.OrderBy(d => d.NomeCasa).ThenBy(d => d.NomeQuarto).ToList();
+}
+
     }
 }

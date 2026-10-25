@@ -1,6 +1,8 @@
 using EcocaminhosApi.Interfaces;
 using EcocaminhosApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using EcocaminhosApi.DTOs;
+
 
 namespace EcocaminhosApi.Controllers
 {
@@ -24,6 +26,12 @@ namespace EcocaminhosApi.Controllers
         {
             List<Voluntario> listaVoluntarios = _voluntarioRepository.ListarTodos();
             return Ok(listaVoluntarios); // 200
+        }
+
+        [HttpGet("alocacoes")]
+        public IActionResult GetAlocacoes()
+        {
+         return Ok(_voluntarioRepository.ListarAlocacoes());
         }
 
         [HttpGet("{id}")]

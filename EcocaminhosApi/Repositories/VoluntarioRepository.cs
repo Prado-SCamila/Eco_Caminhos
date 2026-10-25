@@ -2,6 +2,8 @@ using EcocaminhosApi.Data;
 using EcocaminhosApi.Interfaces;
 using EcocaminhosApi.Models;
 using Microsoft.EntityFrameworkCore;
+using EcocaminhosApi.DTOs;
+
 
 namespace EcocaminhosApi.Repositories
 {
@@ -54,5 +56,21 @@ namespace EcocaminhosApi.Repositories
                 _context.SaveChanges();
             }
         }
+
+        public List<AlocacaoVoluntarioDto> ListarAlocacoes()
+{
+    return _context.Voluntarios
+        .AsNoTracking()
+        .Select(v => new AlocacaoVoluntarioDto
+        {
+            Nome = v.Nome,
+            IdCasa = v.IdCasa,
+            IdQuarto = v.IdQuarto,
+            DataEntrada = v.DataEntrada,
+            DataSaida = v.DataSaida
+        })
+        .OrderBy(a => a.DataEntrada)
+        .ToList();
+}
     }
 }
